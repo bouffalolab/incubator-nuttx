@@ -89,6 +89,7 @@ exception_common:
 
   lui  sp, %hi(g_intstackbase)
   addi sp, sp, %lo(g_intstackbase)
+  la s11, g_intstackalloc
 #endif
 
   /* Call interrupt handler in C */

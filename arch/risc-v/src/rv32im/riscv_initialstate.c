@@ -94,6 +94,9 @@ void up_initial_state(struct tcb_s *tcb)
 
   xcp->regs[REG_SP]      = (uint32_t)tcb->adj_stack_ptr;
 
+  /* FIXME use macros open this feature */
+  xcp->regs[REG_S11]    = (uint32_t)tcb->stack_alloc_ptr + 32;
+
   /* Save the task entry point */
 
   xcp->regs[REG_EPC]     = (uint32_t)tcb->start;

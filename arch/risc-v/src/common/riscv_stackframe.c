@@ -134,6 +134,10 @@ FAR void *up_stack_frame(FAR struct tcb_s *tcb, size_t frame_size)
 
   tcb->xcp.regs[REG_SP] = (uintptr_t)tcb->adj_stack_ptr;
 
+  /* Set the stack limit value */
+ 
+  tcb->xcp.regs[REG_S11] = (uintptr_t)tcb->stack_alloc_ptr + 32;
+
   /* And return the pointer to the allocated region */
 
   return tcb->adj_stack_ptr;

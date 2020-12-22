@@ -113,6 +113,24 @@ uint32_t boot2_get_flash_addr(void)
                      boot2_partition_table.table.pt_table.entry_cnt));
 }
 
+void __attribute__((no_instrument_function)) __cyg_profile_func_enter(void *this_fn, void *call_site) {
+  register uintptr_t *sp;
+  register uintptr_t *stack_base;
+
+  __asm__("add %0, x0, sp" : "=r"(sp));
+  __asm__("add %0, x0, s11" : "=r"(stack_base));
+
+  if (sp <= stack_base){
+    __asm volatile( "csrc mstatus, 8" );
+    while(1);
+  }
+  return;
+}
+
+void __attribute__((no_instrument_function)) __cyg_profile_func_exit(void *this_fn, void *call_site) {
+  return;
+}
+
 /****************************************************************************
  * Name: bfl_main
  ****************************************************************************/
@@ -138,6 +156,7 @@ void bfl_main(void)
 #ifdef USE_EARLYSERIALINIT
   up_earlyserialinit();
 #endif
+
 
   /* Do board initialization */
 

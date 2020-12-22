@@ -35,6 +35,8 @@
 #include <nuttx/input/buttons.h>
 #include <bl602_tim_lowerhalf.h>
 #include <bl602_oneshot_lowerhalf.h>
+#include "hardware/bl602_sec.h"
+#include "wifi_driver/include/bl60x_fw_api.h"
 
 #include "chip.h"
 
@@ -108,6 +110,33 @@ int bl602_bringup(void)
     }
 #endif
 #endif
+  /* Init trng */
 
+  bl602_sec_trng_init();
+
+  hal_sys_capcode_update(29, 29);
+
+  /* remove this usage when c89 */
+  phy_powroffset_set((int8_t [4]){0x0, 0x0, 0x0, 0x0});
+  bl_tpc_update_power_rate_11b((int8_t [4]){0x14, 0x14, 0x14, 0x12});
+  bl_tpc_update_power_rate_11g((int8_t [8]){0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0xe, 0xe});
+  bl_tpc_update_power_rate_11n((int8_t [8]){0x12, 0x12, 0x12, 0x12, 0x12, 0x10, 0xe, 0xe});
+
+extern int bl602_net_initialize(int intf);
+  bl602_net_initialize(0);
+
+#if defined(CONFIG_BL602_BLE_CONTROLLER)
+  extern void uart_init(uint8_t uartid);
+  uart_init(0);
+#if defined(CONFIG_BT_TESTER)
+    /* Init zblue */
+  extern int zblue_main(int argc, char *argv[]);
+  zblue_main(0, NULL);
+  /* Init bttester */
+ 
+  extern int bttester_main(int argc, char *argv[]);
+  bttester_main(0, NULL);
+#endif /* CONFIG_BT_TESTER */
+#endif /* CONFIG_BL602_BLE_CONTROLLER */
   return ret;
 }

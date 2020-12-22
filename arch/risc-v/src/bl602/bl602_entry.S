@@ -44,6 +44,7 @@ bl602_start:
 	la gp, __global_pointer$
 .option pop
 	la sp, _sp_main
+	la s11, _sp_irq_base
 
 #ifndef RUN_IN_RAM
 	/* Load boot2 partition address */

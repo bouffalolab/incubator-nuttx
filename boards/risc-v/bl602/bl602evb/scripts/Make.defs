@@ -45,7 +45,7 @@ ifneq ($(CONFIG_DEBUG_NOOPT),y)
 endif
 
 ARCHCPUFLAGS = -march=rv32imfc -mabi=ilp32f -mno-relax
-ARCHCFLAGS = -fno-builtin -ffunction-sections -fdata-sections
+ARCHCFLAGS = -fno-builtin -ffunction-sections -fdata-sections -fstrict-volatile-bitfields -fshort-enums -finstrument-functions -ffixed-s11
 ARCHCXXFLAGS = -fno-builtin -fno-exceptions -fcheck-new -fno-rtti
 ARCHWARNINGS = -Wall -Wstrict-prototypes -Wshadow -Wundef
 ARCHWARNINGSXX = -Wall -Wshadow -Wundef

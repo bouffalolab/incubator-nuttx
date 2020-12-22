@@ -54,6 +54,8 @@ CHIP_CSRCS  += bl602_tim.c bl602_tim_lowerhalf.c bl602_oneshot_lowerhalf.c
 endif
 
 CHIP_CSRCS += bl602_glb.c bl602_gpio.c bl602_hbn.c
+CHIP_CSRCS += bl602_netdev.c
 
-# INCLUDES += ${shell $(INCDIR) "$(CC)" $(ARCH_SRCDIR)$(DELIM)chip$(DELIM)hardware}
+EXTRA_LIBPATHS += -L"$(TOPDIR)$(DELIM)arch$(DELIM)$(CONFIG_ARCH)$(DELIM)src$(DELIM)chip$(DELIM)libs"
+EXTRA_LIBS += -lbl602_rf
 

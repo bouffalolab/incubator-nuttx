@@ -184,7 +184,7 @@ uint32_t up_get_newintctx(void)
    * Also set machine previous interrupt enable
    */
 
-  return (MSTATUS_MPPM | MSTATUS_MPIE);
+  return (MSTATUS_MPPM | MSTATUS_MPIE | MSTATUS_FS);
 }
 
 /****************************************************************************

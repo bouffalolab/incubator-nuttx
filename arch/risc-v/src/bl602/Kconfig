@@ -74,4 +74,12 @@ config BL602_TIMER0
 
 config BL602_TIMER1
 	bool "TIMER1"
+
+config BL602_BLE_CONTROLLER
+	bool "ble controller support"
+	default n
+	depends on PSEUDOTERM
+	depends on PSEUDOTERM_SUSV1
+	depends on !DISABLE_MQUEUE
+	depends on SCHED_HPWORK
 endmenu

@@ -26,6 +26,7 @@
  ****************************************************************************/
 
 #include <stdint.h>
+#include "riscv_arch.h"
 
 /****************************************************************************
  * Pre-processor Definitions
@@ -221,6 +222,9 @@ extern "C"
 /****************************************************************************
  * Public Function Prototypes
  ****************************************************************************/
+void bl602_asm_delay_us(uint32_t core, uint32_t cnt);
+void bl602_delay_us(uint32_t cnt);
+void bl602_delay_ms(uint32_t cnt);
 
 #undef EXTERN
 #ifdef __cplusplus
